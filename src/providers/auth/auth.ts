@@ -4,76 +4,60 @@ import 'rxjs/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 
-interface User {
-  username:string,
-  password:string
-}
+const BASE_DOMAIN = 'http://localhost:3000';
+const BASE_URL = `${BASE_DOMAIN}/api/auth`;
 
 @Injectable()
 export class AuthProvider {
-  
-  BASEURL:string = "http://localhost:3000"
-  options:object = {withCredentials:true};
-
-  constructor(public http: HttpClient) {
-    // this.isLoggedIn().subscribe();
+  options:object = {
+    withCredentials:true,
   }
 
-  private user:User;
-  private userEvent:EventEmitter<any>;
+  errors: Array<string> = [
+    'usuario o contraseña incorrecto',
+    'no puedes campos vacíos'
+  ]
 
-  getUser(){
-    return this.user;
-  }
+  user:object;
+  loginEvent:EventEmitter<object> = new EventEmitter();
 
-  getUserEvent(){
-    return this.userEvent;
-  }
-
-  private configureUser(set=false){
-    return (user) => {
-      if(set){
-        this.user = user;
-        this.userEvent.emit(user);
-      }else{
-        this.user = null
-        this.userEvent.emit(null);
-      }
-      return user;
-    }
+  constructor(private http: HttpClient) {
   }
 
   handleError(e) {
     return Observable.throw(e.message);
   }
 
-  signup(username:string, password:string):Observable<any>{
-    return this.http.post(`${this.BASEURL}/api/auth/signup`, {username,password}, this.options)
-      .map(res => res)
-      .map(this.configureUser(true))
+  handleUser(obj) {
+    this.user = obj;
+    this.loginEvent.emit(this.user);
+    return this.user;
+  }
+
+  signup(username,password) {
+    console.log('entro serv')
+    console.log(username, password)
+    return this.http.post(`${BASE_URL}/signup`, {username, password}, this.options)
+      .map(user => this.handleUser(user))
       .catch(this.handleError);
   }
 
-  login(username:string, password:string):Observable<any>{
-    return this.http.post(`${this.BASEURL}/api/auth/login`, {username,password},this.options)
-      .map(res => res)
-      .map(this.configureUser(true))
+  login(username:string, password:string) {
+    console.log(`Login with user:${username} and password ${password}`);
+    return this.http.post(`${BASE_URL}/login`, {username, password}, this.options)
+      .map(user => this.handleUser(user))
       .catch(this.handleError);
   }
 
-  logout():Observable<any>{
-    return this.http.get(`${this.BASEURL}/api/auth/logout`,this.options)
-      .map(res => res)
-      .map(this.configureUser(false))
+  logout() {
+    console.log('intento hacer logout')
+    return this.http.get(`${BASE_URL}/logout`,this.options)
+      .map(user => this.handleUser(null))
       .catch(this.handleError);
   }
 
-  isLoggedIn():Observable<any> {
-    return this.http.get(`${this.BASEURL}/api/auth/loggedin`,this.options)
-      .map(res => res)
-      .map(this.configureUser(true))
-      .catch(this.handleError);
+  isLoggedIn() {
+    return this.http.get(`${BASE_URL}/loggedin`,this.options)
   }
-
 
 }
