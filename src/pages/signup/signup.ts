@@ -3,20 +3,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
+  selector: 'page-signup',
+  templateUrl: 'signup.html',
 })
-export class HomePage {
+export class SignupPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-  }
-
-  navigateToSignUp(){
-    this.navCtrl.push('SignupPage')
+    console.log('ionViewDidLoad SignupPage');
   }
 
 }
