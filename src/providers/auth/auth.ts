@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import 'rxjs/operator/map';
 import 'rxjs/operator/catch';
 import { Observable } from 'rxjs/Rx';
+import { HttpClient } from '@angular/common/http';
 
 interface User {
   username:string,
@@ -16,7 +16,7 @@ export class AuthProvider {
   options:object = {withCredentials:true};
 
   constructor(public http: HttpClient) {
-    this.isLoggedIn().subscribe();
+    // this.isLoggedIn().subscribe();
   }
 
   private user:User;
@@ -35,9 +35,7 @@ export class AuthProvider {
       if(set){
         this.user = user;
         this.userEvent.emit(user);
-        console.log(`Setting user, welcome ${this.user.username}`)
       }else{
-        console.log(`bye bye ${this.user.username}`)
         this.user = null
         this.userEvent.emit(null);
       }
@@ -46,8 +44,7 @@ export class AuthProvider {
   }
 
   handleError(e) {
-    console.log(e);
-    return Observable.throw(e.json().message);
+    return Observable.throw(e.message);
   }
 
   signup(username:string, password:string):Observable<any>{

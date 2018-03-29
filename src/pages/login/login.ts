@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AuthProvider } from '../../providers/auth/auth'
 
 @IonicPage()
 @Component({
@@ -14,12 +9,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  username: string;
+  password: string;
+  error:string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  login(){
+    this.auth.login(this.username, this.password)
+    .catch(e => this.error = e)
+    .subscribe(() => {
+      this.navCtrl.setRoot('PizzaMenuPage')
+    })
   }
 
 }
