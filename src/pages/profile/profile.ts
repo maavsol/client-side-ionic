@@ -154,8 +154,32 @@ export class ProfilePage {
   }
 
   deleteAddress(id, i){
+    
     this.addressServ.deleteAddress(id).subscribe(()=>
     {this.addresses.splice(i, 1)
      this.presentToast("dirección eliminada correctamente")})
+  }
+
+  presentConfirm(id, i) {
+    let alert = this.alert.create({
+      title: 'Confirm purchase',
+      message: 'Quieres borrar esta dirección?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Borrar',
+          handler: () => {
+            this.deleteAddress(id, i)
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
