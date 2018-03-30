@@ -34,7 +34,8 @@ export class AddressPage {
     public addressServ: AddressProvider,
     public authServ: AuthProvider,
     public viewCtrl: ViewController,
-    private zone: NgZone
+    private zone: NgZone,
+    public userServ: UserProvider
   ) {
     this.address = {
       place: ''
@@ -106,9 +107,11 @@ export class AddressPage {
     } else {
       this.addressServ
       .addNewAddress(userId, streetName, floor, postalCode)
-      .subscribe(()=> console.log('submited'));
+      .subscribe(() => {
+        this.userServ.updateUser(telephone, userId).subscribe(()=>{
+          { this.navCtrl.setRoot('RestaurantListPage') }
+        })
+      });
     }
   }
 }
-
-// ()=> {this.navCtrl.setRoot('RestaurantlistPage')}
