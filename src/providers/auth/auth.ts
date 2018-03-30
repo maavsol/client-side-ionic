@@ -56,8 +56,8 @@ export class AuthProvider {
       .catch(this.handleError);
   }
 
-  isLoggedIn() {
-    return this.http.get(`${BASE_URL}/loggedin`,this.options)
-  }
+  // isLoggedIn() {
+  //   return this.http.get(`${BASE_URL}/loggedin`,this.options)
+  // }
 
 }
