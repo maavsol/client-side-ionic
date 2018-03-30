@@ -23,4 +23,8 @@ updateAddress(id, data){
   return this.http.post(`${BASE_URL}/editAddress/${id}`, { data }, this.options)
 }
 
+deleteAddress(id){
+  return this.http.post(`${BASE_URL}/deleteAddress/${id}`, this.options)
+}
+
 }

@@ -152,4 +152,10 @@ export class ProfilePage {
     });
     alert.present();
   }
+
+  deleteAddress(id, i){
+    this.addressServ.deleteAddress(id).subscribe(()=>
+    {this.addresses.splice(i, 1)
+     this.presentToast("dirección eliminada correctamente")})
+  }
 }
