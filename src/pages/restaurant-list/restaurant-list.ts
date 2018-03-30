@@ -27,7 +27,9 @@ export class RestaurantListPage {
 
   ionViewDidLoad() {
     this.user = this.auth.user;
-    this.address = this.navParams.data;
+    console.log('esto esta mis params')
+    console.log(this.navParams.data)
+    // this.address = this.navParams.data;
     this.restaurantServ
       .getRestaurants()
       .subscribe((restaurants: Array<any>) => {

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, ModalController, Modal } from "ion
 import { AuthProvider } from "../../providers/auth/auth";
 import { AddressProvider } from "../../providers/address/address";
 import { OrderProvider } from "../../providers/order/order";
+import { RestaurantProvider } from "../../providers/restaurant/restaurant" 
 
 @IonicPage()
 @Component({
@@ -49,6 +50,7 @@ export class PizzaMenuPage {
   userAddresses: any;
   fullAddress: any;
   addressName: string;
+  calculatedPrices: any;
 
   constructor(
     public navCtrl: NavController,
@@ -57,10 +59,12 @@ export class PizzaMenuPage {
     public addressServ: AddressProvider,
     public orderServ: OrderProvider,
     public modalCtrl: ModalController,
+    public restServ: RestaurantProvider
   ) {}
 
   ionViewDidLoad() {
     this.user = this.auth.user;
+    console.log(this.user)
     this.userId = this.user._id
     this.addressServ.findUserAddresses(this.userId).subscribe((foundAddresses: any)=>{
       if(foundAddresses.length !== 0){
@@ -109,9 +113,16 @@ export class PizzaMenuPage {
 
   navigateToNextPage() {
     this.orderServ.pizzasOrdered = this.pizzasOrdered;
+    this.restServ.orderedPizzas = this.pizzasOrdered;
+    let fullAddress = this.fullAddress;
+    this.restServ.sendOrderedPizzasToCalculatePrice(this.pizzasOrdered).subscribe((response)=>{
+    this.calculatedPrices = response
+    let calculatedPrices = this.calculatedPrices;
+    let data = { fullAddress, calculatedPrices }
     this.userAddresses === undefined
-      ? this.navCtrl.push('AddressPage', this.orderServ.pizzasOrdered)
-      : this.navCtrl.push('RestaurantListPage', this.fullAddress);
+      ? this.navCtrl.push('AddressPage', this.pizzasOrdered)
+      : this.navCtrl.push('RestaurantListPage', data);
+  })
   }
 
   openMenu() {
