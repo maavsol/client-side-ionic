@@ -108,7 +108,7 @@ export class PizzaMenuPage {
 
   navigateToNextPage() {
     this.orderServ.pizzasOrdered = this.pizzasOrdered;
-    this.userAddresses.length === 0
+    this.userAddresses === undefined
       ? this.navCtrl.push('AddressPage', this.orderServ.pizzasOrdered)
       : this.navCtrl.push('RestaurantListPage', this.orderServ.pizzasOrdered);
   }

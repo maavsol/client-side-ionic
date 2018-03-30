@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
-/**
- * Generated class for the AddressPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AddressProvider } from '../../providers/address/address';
+import { UserProvider } from '../../providers/user/user';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
 @Component({
@@ -14,12 +11,104 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'address.html',
 })
 export class AddressPage {
+  telephone: number;
+  postalCode: number;
+  address;
+  autocompleteItems = [];
+  autocomplete;
+  service = new google.maps.places.AutocompleteService();
+  user: any;
+  formInfo: any = {
+    streetName: '',
+    floor: '',
+    postalCode: '',
+    coordinates: []
+  };
+  placesService = new google.maps.places.PlacesService(
+    document.createElement("div")
+  );
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public addressServ: AddressProvider,
+    public authServ: AuthProvider,
+    public viewCtrl: ViewController,
+    private zone: NgZone
+  ) {
+    this.address = {
+      place: ''
+    };
+    this.autocompleteItems = [];
+    this.autocomplete = {
+      query: ''
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddressPage');
+    this.user = this.authServ.user;
   }
 
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  getItemCoordinates(item) {
+    return new Promise((resolve, reject) => {
+      this.placesService.getDetails(
+        {
+          placeId: item.place_id
+        },
+        function(place) {
+          resolve(place);
+        }
+      );
+    });
+  }
+
+  chooseItem(item: any) {
+    this.getItemCoordinates(item).then((place: any) => {
+      let postalCode = Number(place.formatted_address.split(", ")[2].split(" ")[0]);
+      let address = place.name;
+      this.formInfo.postalCode = postalCode;
+      this.formInfo.streetName = address;
+    });
+  }
+
+  updateSearch() {
+    if (this.autocomplete.query == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+    let me = this;
+    this.service.getPlacePredictions(
+      {
+        input: this.autocomplete.query
+      },
+      function(predictions: any, status) {
+        if (!predictions)
+          predictions = [{ description: 'no hay una calle especificada' }];
+        me.autocompleteItems = [];
+        me.zone.run(function() {
+          predictions.forEach(function(prediction) {
+            me.autocompleteItems.push(prediction);
+          });
+        });
+      }
+    );
+  }
+
+  addAddress() {
+    const userId = this.user._id;
+    const { telephone, streetName, floor, postalCode } = this.formInfo;
+    if( telephone === undefined || postalCode === undefined || streetName ===  undefined || floor === undefined)
+    { console.log('you must fill in all details') 
+    } else {
+      this.addressServ
+      .addNewAddress(userId, streetName, floor, postalCode)
+      .subscribe(()=> console.log('submited'));
+    }
+  }
 }
+
+// ()=> {this.navCtrl.setRoot('RestaurantlistPage')}

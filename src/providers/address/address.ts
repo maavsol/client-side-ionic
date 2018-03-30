@@ -8,15 +8,14 @@ const BASE_URL = `${BASE_DOMAIN}/api/address`;
 export class AddressProvider {
   options: object = { withCredentials: true }
   constructor(public http: HttpClient) {
-    console.log('Hello AddressProvider Provider');
-  }
+}
 
 findUserAddresses(id){
   return this.http.get(`${BASE_URL}/findUserAddresses/${id}`, this.options)
 }
 
-addNewAddress(id){
-  return this.http.post(`${BASE_URL}/addNewAddress/${id}`, this.options)
+addNewAddress(userId, streetName, floor, postalCode){
+  return this.http.post(`${BASE_URL}/addNewAddress/${userId}`, { streetName, floor, postalCode }, this.options)
 }
 
 updateAddress(id, data){
