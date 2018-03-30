@@ -97,6 +97,10 @@ export class ProfilePage {
     this.presentPrompt("Introduce tu nueva contraseña", "contrasena", "password");
   }
 
+  addOrChangeTelephone(){
+    this.presentPrompt("Introduce tu número de telefono", "telephone", "tel")
+  }
+
   presentAddressPrompt(addressId, streetName, floor, postalCode, i) {
     let alert = this.alert.create({
       title: "Editar",

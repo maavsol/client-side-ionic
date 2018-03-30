@@ -21,14 +21,22 @@
   </div>
   <br>
   <br>
+  <div (click)=addOrChangeTelephone()>
+    <p>NUMERO DE TELEFONO</p>
+    <ion-icon name="create"></ion-icon>
+  </div>
+  <br>
+  <br>
   <div *ngIf='addresses'>
     <div *ngFor='let a of addresses; let i = index'>
       <button (click)='presentAddressPrompt(a._id, a.streetName, a.floor, a.postalCode, i)'>
-          <p>{{ a.streetName }}</p>
-          <p>{{ a.floor }}</p>
-          <p>{{ a.postalCode }}</p>
+        <p>{{ a.streetName }}</p>
+        <p>{{ a.floor }}</p>
+        <p>{{ a.postalCode }}</p>
       </button>
-      <button (click)='presentConfirm(a._id, i)'><ion-icon name="close"></ion-icon></button>
+      <button (click)='presentConfirm(a._id, i)'>
+        <ion-icon name="close"></ion-icon>
+      </button>
     </div>
   </div>
 
