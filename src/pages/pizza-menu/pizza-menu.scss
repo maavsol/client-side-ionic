@@ -1,3 +1,88 @@
-page-pizza-menu {
+$pepperoni-color: #cc4f42;
 
+.all-content{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.pizza-container{
+  display: flex;
+  flex-wrap: wrap;
+  height: 80%;
+}
+
+.pizza-items{
+  display: inline-block;
+  width: 40%;
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer{
+  height: 20%;
+  width: 100%;
+}
+
+.but-style{
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  width: 80%;
+}
+
+.quantity{
+  margin: 5px;
+  border: 0;
+  border-radius: 50%;
+  background-color: $pepperoni-color;
+  padding: 24px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  border: 3px solid white;
+  width: 40px;
+  height:40px;
+  align-self: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-items{
+  padding: 0;
+  border: 0;
+  background-color: white;
+  color: $pepperoni-color;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.pizza-image{
+  margin: 8px;
+}
+
+.bt-containter{
+  display: flex;
+  margin-top: -40px;
+  align-items: center;
+}
+
+ion-navbar{
+  text-align: center;
+}  
+
+.pizza-name{
+  font-weight: bold;
+  color: $pepperoni-color;
+}
+
+.direction-handler{
+  border: red 1px solid;
+}
+
+

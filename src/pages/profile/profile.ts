@@ -182,4 +182,10 @@ export class ProfilePage {
     });
     alert.present();
   }
+
+  logout(){
+    this.auth.logout().subscribe(()=>{
+      this.navCtrl.setRoot('HomePage')
+    })
+  }
 }

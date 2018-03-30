@@ -10,6 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { AddressProvider } from '../providers/address/address';
+import { OrderProvider } from '../providers/order/order';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AddressProvider } from '../providers/address/address';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     UserProvider,
-    AddressProvider
+    AddressProvider,
+    OrderProvider
   ]
 })
 export class AppModule {}
