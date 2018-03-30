@@ -34,7 +34,6 @@ export class AddressListPage {
 
   dismiss() {
     if (this.selectedAddress) {
-
       let data = this.userAddresses[this.selectedAddress];
       this.viewCtrl.dismiss(data);
     }

@@ -34,8 +34,8 @@
     
       </div>
     
-      <button ion-button block (click)="openMenu()">
-          Direccion actual: 
+      <button *ngIf='userAddresses' ion-button block (click)="openMenu()">
+          Direccion actual: {{ addressName }}
       </button>
     
     </ion-content>

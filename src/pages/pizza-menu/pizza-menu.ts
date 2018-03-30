@@ -47,6 +47,8 @@ export class PizzaMenuPage {
   buttonDisabled: boolean = true;
   userId: string;
   userAddresses: any;
+  fullAddress: any;
+  addressName: string;
 
   constructor(
     public navCtrl: NavController,
@@ -60,8 +62,13 @@ export class PizzaMenuPage {
   ionViewDidLoad() {
     this.user = this.auth.user;
     this.userId = this.user._id
-    this.addressServ.findUserAddresses(this.userId).subscribe((foundAddresses)=>{
-      this.userAddresses = foundAddresses
+    this.addressServ.findUserAddresses(this.userId).subscribe((foundAddresses: any)=>{
+      if(foundAddresses.length !== 0){
+        this.userAddresses = foundAddresses
+      }
+      if(this.userAddresses){
+        this.addressName = this.userAddresses[0].streetName
+      } 
     })
   }
 
@@ -109,11 +116,11 @@ export class PizzaMenuPage {
   openMenu() {
     let profileModal: Modal = this.modalCtrl.create('AddressListPage');
     profileModal.present();
-    // profileModal.onDidDismiss(data => {
-    //   if(data){
-    //     this.fullAddress = data
-    //     this.addressName = data.streetName
-    //   }
-    // })
+    profileModal.onDidDismiss(data => {
+      if(data){
+        this.fullAddress = data
+        this.addressName = data.streetName
+      }
+    })
   }
 }
