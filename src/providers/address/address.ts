@@ -19,4 +19,8 @@ addNewAddress(id){
   return this.http.post(`${BASE_URL}/addNewAddress/${id}`, this.options)
 }
 
+updateAddress(id, data){
+  return this.http.post(`${BASE_URL}/editAddress/${id}`, { data }, this.options)
+}
+
 }

@@ -53,7 +53,6 @@ export class ProfilePage {
   }
 
   presentPrompt(message, field, type) {
-    console.log("entro aca hueva");
     let alert = this.alert.create({
       title: "Editar",
       message: message,
@@ -95,10 +94,62 @@ export class ProfilePage {
   }
 
   changePassword() {
-    this.presentPrompt(
-      "Introduce tu nueva contraseña",
-      "contrasena",
-      "password"
-    );
+    this.presentPrompt("Introduce tu nueva contraseña", "contrasena", "password");
+  }
+
+  presentAddressPrompt(addressId, streetName, floor, postalCode, i) {
+    console.log('index', i)
+    let alert = this.alert.create({
+      title: "Editar",
+      message: 'edita tu dirección de entrega',
+      inputs: [
+        {
+          name: 'streetName',
+          label: 'calle',
+          placeholder: 'calle',
+          value: streetName,
+          type: 'text'
+        },
+        {
+          name: 'floor',
+          label: 'piso',
+          placeholder: 'piso',
+          value: floor,
+          type: 'text'
+        },
+        {
+          name: 'postalCode',
+          label: 'C.P.',
+          placeholder: 'C.P.',
+          value: postalCode,
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: data => {
+            console.log("Cancel clicked");
+          }
+        },
+        {
+          text: "OK",
+          handler: data => {
+            if (data) {
+              this.addressServ
+                .updateAddress(addressId, data)
+                .subscribe((newInfo: any) => {
+                  this.addresses[i].streetName = newInfo.streetName;
+                  this.addresses[i].floor = newInfo.floor;
+                  this.addresses[i].postalCode = newInfo.postalCode;
+                  this.presentToast("dirección actualizada correctamente");
+                });
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
