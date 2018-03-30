@@ -11,6 +11,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { AddressProvider } from '../providers/address/address';
 import { OrderProvider } from '../providers/order/order';
+import { RestaurantProvider } from '../providers/restaurant/restaurant';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { OrderProvider } from '../providers/order/order';
     AuthProvider,
     UserProvider,
     AddressProvider,
-    OrderProvider
+    OrderProvider,
+    RestaurantProvider
   ]
 })
 export class AppModule {}

@@ -67,7 +67,8 @@ export class PizzaMenuPage {
         this.userAddresses = foundAddresses
       }
       if(this.userAddresses){
-        this.addressName = this.userAddresses[0].streetName
+        this.fullAddress = this.userAddresses[0]
+        this.addressName = this.fullAddress.streetName
       } 
     })
   }
@@ -110,7 +111,7 @@ export class PizzaMenuPage {
     this.orderServ.pizzasOrdered = this.pizzasOrdered;
     this.userAddresses === undefined
       ? this.navCtrl.push('AddressPage', this.orderServ.pizzasOrdered)
-      : this.navCtrl.push('RestaurantListPage', this.orderServ.pizzasOrdered);
+      : this.navCtrl.push('RestaurantListPage', this.fullAddress);
   }
 
   openMenu() {

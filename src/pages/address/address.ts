@@ -107,9 +107,9 @@ export class AddressPage {
     } else {
       this.addressServ
       .addNewAddress(userId, streetName, floor, postalCode)
-      .subscribe(() => {
+      .subscribe((addedAddress) => {
         this.userServ.updateUser(telephone, userId).subscribe(()=>{
-          { this.navCtrl.setRoot('RestaurantListPage') }
+          { this.navCtrl.setRoot('RestaurantListPage', addedAddress) }
         })
       });
     }

@@ -1,3 +1,36 @@
-page-restaurant-list {
+$pepperoni-color: #cc4f42;
 
+.father-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.image-holder{
+    display: flex;
+    margin: 20px;
+    width: 90%;
+    border-radius: 5px;
+    border: 1px solid $pepperoni-color;
+    align-items: center;
+    justify-content: center;
+}
+
+.name-holder{
+    height: 100%;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.price{
+    color: $pepperoni-color;
+    padding: 10%;
+    border-radius: 50%;
+    background-color: white;
+    font-weight: bold;
+    font-size: 38px;
 }

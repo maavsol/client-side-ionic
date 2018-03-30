@@ -1,18 +1,35 @@
-<!--
-  Generated template for the RestaurantListPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>restaurantList</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>ELIGE RESTAURANTE</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  <ion-content padding>
+    <div *ngIf="restaurants">
+    <div class="father-content">
+      <div *ngIf="!restaurants">
+        <span>OOPS! No hay restaurantes que repartan a tu zona</span>   
+        <img src="http://res.cloudinary.com/ddesyiweo/image/upload/c_scale,w_204/v1520084557/Captura_de_pantalla_2018-03-03_a_las_14.41.41_e4vjfy.png">     
+      </div>
+      <button div class="image-holder" *ngFor="let restaurant of restaurants; let i = index" (click)="changeColor(i); saveRestaurantId(restaurant._id)" [ngStyle]="colors[i]">
+        <div>
+          <img src="http://via.placeholder.com/200x200">
+        </div>
+        <div class="name-holder">
+          {{ restaurant.name }}
+        </div>
+        <div class="price">
+          30
+        </div>
+      </button>
+      <div class="footer">
+          <button class="but-style" [disabled]="buttonDisabled" ion-button (click)="updateOrderWithRestaurant()">SIGUIENTE</button>
+      </div>
+    </div>
+  </div>
+  </ion-content>
