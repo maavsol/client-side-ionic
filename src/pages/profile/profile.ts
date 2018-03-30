@@ -98,7 +98,6 @@ export class ProfilePage {
   }
 
   presentAddressPrompt(addressId, streetName, floor, postalCode, i) {
-    console.log('index', i)
     let alert = this.alert.create({
       title: "Editar",
       message: 'edita tu dirección de entrega',

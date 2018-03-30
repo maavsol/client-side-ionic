@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, ModalController, Modal } from "ionic-angular";
 
 import { AuthProvider } from "../../providers/auth/auth";
 import { AddressProvider } from "../../providers/address/address";
@@ -53,7 +53,8 @@ export class PizzaMenuPage {
     public navParams: NavParams,
     public auth: AuthProvider,
     public addressServ: AddressProvider,
-    public orderServ: OrderProvider
+    public orderServ: OrderProvider,
+    public modalCtrl: ModalController,
   ) {}
 
   ionViewDidLoad() {
@@ -98,13 +99,21 @@ export class PizzaMenuPage {
     }
   }
 
-
   navigateToNextPage() {
-    this.orderServ.pizzasOrdered = this.pizzasOrdered
-    console.log('mi pedido')
-    console.log(this.orderServ.pizzasOrdered)
+    this.orderServ.pizzasOrdered = this.pizzasOrdered;
     this.userAddresses.length === 0
-      ? this.navCtrl.push('AddressPage')
-      : this.navCtrl.push('RestaurantListPage');
+      ? this.navCtrl.push('AddressPage', this.orderServ.pizzasOrdered)
+      : this.navCtrl.push('RestaurantListPage', this.orderServ.pizzasOrdered);
+  }
+
+  openMenu() {
+    let profileModal: Modal = this.modalCtrl.create('AddressListPage');
+    profileModal.present();
+    // profileModal.onDidDismiss(data => {
+    //   if(data){
+    //     this.fullAddress = data
+    //     this.addressName = data.streetName
+    //   }
+    // })
   }
 }

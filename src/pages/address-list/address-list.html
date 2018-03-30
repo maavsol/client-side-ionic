@@ -1,0 +1,17 @@
+<ion-content>
+  <div class="overlay" (click)="dismiss()"></div>
+  <div class="modal_content">
+    <ion-list radio-group [(ngModel)]="selectedAddress" *ngFor='let address of userAddresses; let i = index'>
+      <ion-item>
+        <ion-label>{{address.streetName}}</ion-label>
+        <ion-radio value={{i}} checked></ion-radio>
+      </ion-item>
+
+    </ion-list>
+
+    <button ion-button block (click)="dismiss()">
+      CERRAR
+    </button>
+
+  </div>
+</ion-content>
