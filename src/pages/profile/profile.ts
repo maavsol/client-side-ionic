@@ -78,7 +78,9 @@ export class ProfilePage {
               this.userServ
                 .updateUser(data, this.userId)
                 .subscribe((newInfo: any) => {
+                  console.log(newInfo)
                   this.user.username = newInfo.username;
+                  this.user.telephone = newInfo.telephone;
                   this.presentToast("usuario actualizado correctamente");
                 });
             }

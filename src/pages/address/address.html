@@ -18,7 +18,7 @@
         {{ item.description }}
       </div>
     </div>
-    <input class="input-style" type="text" [(ngModel)]="formInfo.telephone" name="telephone number" placeholder="telephone">
+    <input *ngIf='!user?.telephone' class="input-style" type="text" [(ngModel)]="formInfo.telephone" name="telephone number" placeholder="telephone">
     <input class="input-style" type="text" [(ngModel)]="formInfo.streetName" name="streetName" placeholder="calle">
     <input class="input-style" type="text" [(ngModel)]="formInfo.floor" name="Floor" placeholder="n/puerta">
     <input class="input-style" type="text" [(ngModel)]="formInfo.postalCode" name="Number" placeholder="codigo postal">
