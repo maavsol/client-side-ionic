@@ -1,16 +1,22 @@
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Component, NgZone } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ViewController
+} from "ionic-angular";
 
-import { AddressProvider } from '../../providers/address/address';
-import { UserProvider } from '../../providers/user/user';
-import { AuthProvider } from '../../providers/auth/auth';
+import { AddressProvider } from "../../providers/address/address";
+import { UserProvider } from "../../providers/user/user";
+import { AuthProvider } from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
-  selector: 'page-address',
-  templateUrl: 'address.html',
+  selector: "page-address",
+  templateUrl: "address.html"
 })
 export class AddressPage {
+  errorMessage: string;
   telephone: number;
   postalCode: number;
   address;
@@ -19,9 +25,9 @@ export class AddressPage {
   service = new google.maps.places.AutocompleteService();
   user: any;
   formInfo: any = {
-    streetName: '',
-    floor: '',
-    postalCode: '',
+    streetName: "",
+    floor: "",
+    postalCode: "",
     coordinates: []
   };
   placesService = new google.maps.places.PlacesService(
@@ -38,12 +44,12 @@ export class AddressPage {
     public userServ: UserProvider
   ) {
     this.address = {
-      place: ''
+      place: ""
     };
     this.autocompleteItems = [];
     this.autocomplete = {
-      query: ''
-    }
+      query: ""
+    };
   }
 
   ionViewDidLoad() {
@@ -69,7 +75,9 @@ export class AddressPage {
 
   chooseItem(item: any) {
     this.getItemCoordinates(item).then((place: any) => {
-      let postalCode = Number(place.formatted_address.split(", ")[2].split(" ")[0]);
+      let postalCode = Number(
+        place.formatted_address.split(", ")[2].split(" ")[0]
+      );
       let address = place.name;
       this.formInfo.postalCode = postalCode;
       this.formInfo.streetName = address;
@@ -77,7 +85,7 @@ export class AddressPage {
   }
 
   updateSearch() {
-    if (this.autocomplete.query == '') {
+    if (this.autocomplete.query == "") {
       this.autocompleteItems = [];
       return;
     }
@@ -88,7 +96,7 @@ export class AddressPage {
       },
       function(predictions: any, status) {
         if (!predictions)
-          predictions = [{ description: 'no hay una calle especificada' }];
+          predictions = [{ description: "no hay una calle especificada" }];
         me.autocompleteItems = [];
         me.zone.run(function() {
           predictions.forEach(function(prediction) {
@@ -102,16 +110,23 @@ export class AddressPage {
   addAddress() {
     const userId = this.user._id;
     const { telephone, streetName, floor, postalCode } = this.formInfo;
-    if( telephone === undefined || postalCode === undefined || streetName ===  undefined || floor === undefined)
-    { console.log('you must fill in all details') 
+    if (
+      telephone === undefined ||
+      postalCode === undefined ||
+      streetName === undefined ||
+      floor === undefined
+    ) {
+      this.errorMessage = "Debes rellenar todos los datos";
     } else {
       this.addressServ
-      .addNewAddress(userId, streetName, floor, postalCode)
-      .subscribe((addedAddress) => {
-        this.userServ.updateUser(telephone, userId).subscribe(()=>{
-          { this.navCtrl.setRoot('RestaurantListPage', addedAddress) }
-        })
-      });
+        .addNewAddress(userId, streetName, floor, postalCode)
+        .subscribe(addedAddress => {
+          this.userServ.updateUser(telephone, userId).subscribe(() => {
+            {
+              this.navCtrl.setRoot("RestaurantListPage", addedAddress);
+            }
+          });
+        });
     }
   }
 }

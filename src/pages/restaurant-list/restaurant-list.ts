@@ -41,17 +41,17 @@ export class RestaurantListPage {
         // arrayOfTotalPrices.map((e, i) => {
         //   this.restaurants[i].totalPriceOfOrder = e
         // })
-        this.setInitialColors();
+        this.setInitialColors(this.restaurants);
       });
   }
 
-  setInitialColors(){
-    this.colors = this.restaurants.map(e=>{
+  setInitialColors(restaurants){
+    this.colors = restaurants.map(e=>{
       return {'background':'white'}
     })
   }
   changeColor(index){
-    this.setInitialColors();
+    this.setInitialColors(this.restaurants);
     this.colors[index] ={'background':'red'}
     this.buttonDisabled = false;
   }
