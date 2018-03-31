@@ -21,7 +21,8 @@ export class MyApp {
       { title: 'Home', component: 'HomePage' },
       { title: 'Pizza', component: 'PizzaMenuPage' },
       { title: 'Perfil', component: 'ProfilePage'},
-      { title: 'Control-Panel', component: 'OrderConfirmationByAdminPage' }
+      { title: 'Control-Panel', component: 'OrderConfirmationByAdminPage' },
+      { title: 'Historial', component: 'OrderHistoryOfClientPage'}
     ];
   }
 

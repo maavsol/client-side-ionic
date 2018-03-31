@@ -25,9 +25,11 @@ export class OrderProvider {
   }
 
   findMyOrder(id){
-    console.log('entro en el servicio')
-    console.log(id)
     return this.http.get(`${BASE_URL}/getMyOrder/${id}`, this.options)
+  }
+
+  getUserOrders(id){
+    return this.http.get(`${BASE_URL}/getUserOrdersHistory/${id}`, this.options)
   }
 
 }
