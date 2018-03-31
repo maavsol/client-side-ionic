@@ -13,9 +13,13 @@ export class OrderProvider {
   }
 
   createOrder(userId, quantities, address, restaurantId){
-    console.log('al servicio entro')
-    console.log(userId, quantities, address, restaurantId)
     return this.http.post(`${BASE_URL}/createOrder`, {userId, quantities, address, restaurantId}, this.options)
+  }
+
+  findMyOrder(id){
+    console.log('entro en el servicio')
+    console.log(id)
+    return this.http.get(`${BASE_URL}/getMyOrder/${id}`, this.options)
   }
 
 }

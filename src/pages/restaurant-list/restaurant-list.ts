@@ -65,8 +65,8 @@ export class RestaurantListPage {
     let quantities = this.myQuantityArray
     let address = this.address
     let restaurantId = this.restaurantId
-    this.orderServ.createOrder(userId, quantities, address, restaurantId).subscribe((order) => {
-      this.navigateToNextPage(order)
+    this.orderServ.createOrder(userId, quantities, address, restaurantId).subscribe((order: any) => {
+      this.navigateToNextPage(order._id)
     })
   }
 
