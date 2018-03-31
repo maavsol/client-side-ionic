@@ -56,6 +56,14 @@ export class AuthProvider {
       .catch(this.handleError);
   }
 
+  recoverPassword(email){
+    console.log('entro en el servicio')
+    console.log(email)
+    return this.http.post(`${BASE_URL}/sendEmail`, { email }, this.options)
+      .map(res => res)
+      .catch(this.handleError)
+  }
+
   // isLoggedIn() {
   //   return this.http.get(`${BASE_URL}/loggedin`,this.options)
   // }

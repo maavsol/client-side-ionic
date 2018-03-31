@@ -19,14 +19,10 @@ export class OrderConfirmationByAdminPage {
     })
   }
 
-updateOrderStatus(id, index){
-  this.orderServ.updateOrderStatus(id).subscribe((updatedOrder) => {
+updateOrderStatus(id, index, message){
+  this.orderServ.updateOrderStatus(id, message).subscribe((updatedOrder) => {
     this.orders[index] = updatedOrder
   })
 }
-
-// rejectOrder(){
-
-// }
 
 }

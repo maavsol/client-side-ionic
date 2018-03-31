@@ -42,8 +42,8 @@
                    
                   </tr>
                 </table>
-                <button (click)='updateOrderStatus(order._id, i)'>ACEPTAR</button>
-                <button>RECHAZAR</button>
+                <button (click)='updateOrderStatus(order._id, i, "accepted")'>ACEPTAR</button>
+                <button (click)='updateOrderStatus(order._id, i, "rejected")'>RECHAZAR</button>
 
         </ion-card-content>
       
