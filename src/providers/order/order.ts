@@ -16,6 +16,10 @@ export class OrderProvider {
     return this.http.get(`${BASE_URL}/getAllOrders`, this.options)
   }
 
+  updateOrderStatus(id){
+    return this.http.post(`${BASE_URL}/updateOrderStatus/${id}`, this.options)
+  }
+
   createOrder(userId, quantities, address, restaurantId){
     return this.http.post(`${BASE_URL}/createOrder`, {userId, quantities, address, restaurantId}, this.options)
   }

@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-    <ion-card *ngFor='let order of orders'>
+    <ion-card *ngFor='let order of orders; let i = index'>
 
         <ion-card-header>
           Pedido a: {{ order?.restaurant.name }}
@@ -42,6 +42,9 @@
                    
                   </tr>
                 </table>
+                <button (click)='updateOrderStatus(order._id, i)'>ACEPTAR</button>
+                <button>RECHAZAR</button>
+
         </ion-card-content>
       
       </ion-card>
