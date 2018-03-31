@@ -1,3 +1,78 @@
 page-confirmation {
+    $pepperoni-color: #cc4f42;
+
+    .content-rows-column{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .content-rows{
+        display: flex;
+        justify-content: center;
+    }
+
+    .but-content{
+        display: flex;
+        justify-content: center;
+        height:15%;
+    }
+
+    .content-father{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+    }
+
+
+    .row-child{
+        display: flex;
+        width: 50%;
+        flex-direction: column; 
+        align-items: center;    
+    }
+
+    hr{
+        width: 90%;
+        border-top:1px dotted;
+        color: $pepperoni-color;
+    }
+
+    p{
+        font-size: 16px;
+        font-weight: bold;
+        color: $pepperoni-color;
+    }
+
+    
+
+      .but-style{
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 50px;
+        width: 80%;
+        margin: 10px;
+      }
+
+     .pizzapp{
+         font-size:34px;
+         margin: 0;
+     }
+
+     .info{
+        font-size: 35px;
+        font-weight: normal;
+        margin: 0;
+     }
+
+     .general-text{
+        font-weight: normal;
+     }
+
+     .img-sty{
+         color: $pepperoni-color;
+         width:30%;
+         height: 10%;
+     }
 
 }
