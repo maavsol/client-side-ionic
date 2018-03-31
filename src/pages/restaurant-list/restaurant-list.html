@@ -24,11 +24,11 @@
           {{ restaurant.name }}
         </div>
         <div class="price">
-          30
+          {{ restaurant?.totalPriceOfOrder }}
         </div>
       </button>
       <div class="footer">
-          <button class="but-style" [disabled]="buttonDisabled" ion-button (click)="updateOrderWithRestaurant()">SIGUIENTE</button>
+          <button class="but-style" [disabled]="buttonDisabled" ion-button (click)="createOrder()">SIGUIENTE</button>
       </div>
     </div>
   </div>

@@ -114,15 +114,13 @@ export class PizzaMenuPage {
   navigateToNextPage() {
     this.orderServ.pizzasOrdered = this.pizzasOrdered;
     this.restServ.orderedPizzas = this.pizzasOrdered;
-    let fullAddress = this.fullAddress;
-    this.restServ.sendOrderedPizzasToCalculatePrice(this.pizzasOrdered).subscribe((response)=>{
-    this.calculatedPrices = response
-    let calculatedPrices = this.calculatedPrices;
-    let data = { fullAddress, calculatedPrices }
+    let order = this.pizzasOrdered
+    let address = this.fullAddress
+    let data = { order, address }
     this.userAddresses === undefined
       ? this.navCtrl.push('AddressPage', this.pizzasOrdered)
       : this.navCtrl.push('RestaurantListPage', data);
-  })
+
   }
 
   openMenu() {
@@ -135,4 +133,7 @@ export class PizzaMenuPage {
       }
     })
   }
+
+ 
+
 }

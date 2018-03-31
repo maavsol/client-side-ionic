@@ -11,6 +11,8 @@ import { AuthProvider } from "../../providers/auth/auth";
   templateUrl: "restaurant-list.html"
 })
 export class RestaurantListPage {
+  order: any;
+  myQuantityArray: any;
   address: any;
   user: any;
   restaurants: any;
@@ -27,13 +29,18 @@ export class RestaurantListPage {
 
   ionViewDidLoad() {
     this.user = this.auth.user;
-    console.log('esto esta mis params')
-    console.log(this.navParams.data)
-    // this.address = this.navParams.data;
+    this.address = this.navParams.data.address;
+    this.order = this.navParams.data.order
+    console.log(this.order)
+    this.myQuantityArray = this.calculateQuantities(this.order)
     this.restaurantServ
       .getRestaurants()
       .subscribe((restaurants: Array<any>) => {
-        this.restaurants = restaurants;
+        this.restaurants = restaurants
+        // let arrayOfTotalPrices = this.setTotalPrice(this.restaurants, this.myQuantityArray)
+        // arrayOfTotalPrices.map((e, i) => {
+        //   this.restaurants[i].totalPriceOfOrder = e
+        // })
         this.setInitialColors();
       });
   }
@@ -53,7 +60,53 @@ export class RestaurantListPage {
     this.restaurantId = id;
   }
 
-  navigateToNextPage() {
-    this.navCtrl.setRoot('ConfirmationPage');
+  createOrder(){
+    let userId = this.user._id
+    let quantities = this.myQuantityArray
+    let address = this.address
+    let restaurantId = this.restaurantId
+    this.orderServ.createOrder(userId, quantities, address, restaurantId).subscribe((order) => {
+      this.navigateToNextPage(order)
+    })
   }
+
+
+  navigateToNextPage(data) {
+    this.navCtrl.setRoot('ConfirmationPage', data);
+  }
+
+  calculateQuantities(array) {
+    let hamAndCheeseQ = 0;
+    let pepperoniQ = 0;
+    let fourCheeseQ = 0;
+    let barbacueQ = 0;
+   array.map((e) => {
+      if (e.name === 'PEPPERONI') {
+        pepperoniQ = e.number;
+      }
+      if (e.name === 'JAMON Y QUESO') {
+        hamAndCheeseQ = e.number;
+      }
+      if (e.name === 'CUATRO QUESOS') {
+        fourCheeseQ = e.number;
+      }
+      if (e.name === 'BARBACOA') {
+        barbacueQ = e.number;
+      }
+    });
+    return { pepperoniQ: pepperoniQ, hamAndCheeseQ: hamAndCheeseQ, fourCheeseQ: fourCheeseQ, barbacueQ: barbacueQ};
+  }
+
+  // setTotalPrice(restaurants, quantityArray){
+  //   let result = []
+  //   restaurants.map(e => {
+  //     let totalPep = e.pepperoniPrice * quantityArray.pepperoniQ
+  //     let totalFourCheese = e.fourCheesePrice * quantityArray.fourCheeseQ
+  //     let totalBarbacue = e.barbacuePrice * quantityArray.barbacueQ
+  //     let totalHamAndCheese = e.hamAndCheesePrice * quantityArray.hamAndCheeseQ
+  //     let totalOrder = totalPep + totalFourCheese + totalBarbacue + totalHamAndCheese
+  //     result.push(totalOrder)
+  //   })
+  //   return result
+  // }
 }
