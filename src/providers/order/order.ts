@@ -12,6 +12,10 @@ export class OrderProvider {
   constructor(public http: HttpClient) {
   }
 
+  getAllOrders(){
+    return this.http.get(`${BASE_URL}/getAllOrders`, this.options)
+  }
+
   createOrder(userId, quantities, address, restaurantId){
     return this.http.post(`${BASE_URL}/createOrder`, {userId, quantities, address, restaurantId}, this.options)
   }

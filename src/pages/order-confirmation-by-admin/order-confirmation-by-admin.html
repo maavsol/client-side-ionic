@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Control Panel</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card *ngFor='let order of orders'>
+
+        <ion-card-header>
+          Pedido a: {{ order?.restaurant.name }}
+        </ion-card-header>
+        
+        <ion-card-content>
+            <table style="width:100%">
+                <tr>
+                  <th>Direccion</th>
+                  <th>Usuario</th> 
+                 <th>Estado</th>
+                </tr>
+                <tr>
+                  <td>{{ order?.addressToServe.streetName }} {{ order?.addressToServe.floor }}</td>
+                  <td>{{ order?.user.username }}</td> 
+                  <td> {{ order?.status }}</td>
+                </tr>
+              </table>
+              <table style="width:100%">
+                  <tr>
+                    <th>Cantidades</th>
+                   
+                  </tr>
+                  <tr>
+                    <td>pepperoni: {{ order?.numberOfPepperoniOrdered }} <br> 
+                        cuatroquesos:  {{ order?.numberOfFourCheeseOrdered }} <br>
+                        barbacoa:  {{ order?.numberOfBarbacueOrdered }} <br>
+                        jamon y queso :  {{ order?.numberOfHamAndCheeseOrdered }} <br>
+                      </td>
+                    
+                   
+                  </tr>
+                </table>
+        </ion-card-content>
+      
+      </ion-card>
+</ion-content>

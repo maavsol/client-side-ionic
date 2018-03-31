@@ -20,7 +20,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: 'HomePage' },
       { title: 'Pizza', component: 'PizzaMenuPage' },
-      { title: 'Perfil', component: 'ProfilePage'}
+      { title: 'Perfil', component: 'ProfilePage'},
+      { title: 'Control-Panel', component: 'OrderConfirmationByAdminPage' }
     ];
   }
 
